@@ -86,7 +86,7 @@ This level of knowledge is also enough for most interviews. If a security role a
 
 **The bottom line for job seekers:** Be strategic. Look at actual job postings for roles you want. Count how many mention Kubernetes. If it's most of them (for security roles at the time of writing this (December 2025), it most definitely is not in the majority), prioritize learning it. If it's few or none, spend your time on skills that will actually get you hired. The goal is to land a job, not to collect technologies.
 
-For those who want to go into the "security engineering" space rather than GRC, SOC analyst, or application security roles, Kubernetes may become more relevant. Security engineering often sits closer to infrastructure, building security tooling, hardening systems, and working alongside platform teams. In that world, understanding how Kubernetes works is increasingly becoming a part of the job.
+For those who want to go into the "security engineering" space rather than GRC, SOC analyst, or application security roles, my advice is slightly different as Kubernetes may become more relevant. Security engineering often sits closer to infrastructure, building security tooling, hardening systems, and working alongside platform teams. In that world, understanding how Kubernetes works is increasingly becoming a part of the job.
 
 ---
 
