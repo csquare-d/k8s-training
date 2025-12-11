@@ -128,7 +128,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="header">
-        <h1>🔐 ACME Corp Admin Panel</h1>
+        <h1>ACME Corp Admin Panel</h1>
         {% if session.get('user') %}
         <span class="user-info">Logged in as: {{ session.get('user') }} | <a href="/logout" style="color:#e94560;">Logout</a></span>
         {% endif %}
@@ -184,7 +184,7 @@ HTML_TEMPLATE = """
         
         {% elif page == 'console' %}
         <h2>Debug Console</h2>
-        <div class="warning">⚠️ Warning: This console executes commands on the server. Use with caution.</div>
+        <div class="warning">Warning: This console executes commands on the server. Use with caution.</div>
         <div class="card">
             <form method="POST">
                 <label>Enter command:</label>
