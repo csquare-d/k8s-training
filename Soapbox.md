@@ -8,11 +8,11 @@ I work on a project with a niche use case. We're not solving Google-scale proble
 
 I put this training together not because I'm an expert or because I think you should dedicate all your time to learning Kubernetes. I made it because I think it's an interesting technology, and some of the most common question I hear at work, even among very smart and talented engineers, is still "what is Kubernetes?" or "How does Kubernetes work?"
 
-That question is surprisingly hard to answer without diving into containers, orchestration, distributed systems, and a dozen other concepts. I wanted to create something that serves as a primer: what Kubernetes is, how to use it at a basic level, and some security-related stuff too.
+Those questions are surprisingly hard to answer without diving into containers, orchestration, distributed systems, and a dozen other concepts. I wanted to create something that serves as a primer: what Kubernetes is, how to use it at a basic level, and some security-related stuff too.
 
-Mostly, this was just for fun. If you learn something useful, great. If you decide Kubernetes isn't for you and you never intend on touching it unless absolutely required, that's also valid. Either way, I hope this helps to demystify what the heck Kubernetes even is.
+Mostly, this was made just for fun. If you learn something useful, great. If you decide Kubernetes isn't for you and you never intend on touching it unless absolutely required, that's also valid. Either way, I hope this helps to demystify what the heck Kubernetes even is.
 
-## What is Kubernetes?
+## So What is Kubernetes?
 
 Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform. It automates the deployment, scaling, and management of containerized applications across clusters of machines.
 
