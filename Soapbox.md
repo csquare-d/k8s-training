@@ -49,19 +49,44 @@ Kubernetes provides answers to all of these through a declarative system: you te
 
 ## Should You Learn Kubernetes?
 
-It depends on your role and goals.
+It depends on your role, goals, and where you are in your career.
 
-**For infrastructure engineers, DevOps peeps, and platform engineering:** Kubernetes knowledge is increasingly expected. It's become an industry standard ask for these positions, and understanding it opens doors.
+**For infrastructure engineers, DevOps peeps, and platform engineering:** Kubernetes knowledge is increasingly expected. It's become an industry standard ask for these positions, and understanding it opens doors. Job postings in this space frequently list Kubernetes as a requirement or strong preference. Even if your current organization doesn't use it, your next one might. The concepts you learn (declarative infrastructure, container orchestration, service discovery) transfer to other tools too. If this is your career path, investing time here will pay off.
 
-**For developers:** Learning the basics helps you collaborate with operations teams and understand how your code runs in production, but deep expertise usually isn't necessary.
+If you're job hunting in this space, Kubernetes on your resume does matter. It's one of those technologies that recruiters and hiring managers actively search for. Having hands-on experience, even from a home lab or personal projects, sets you apart from candidates who only have theoretical knowledge. Be prepared to talk about what you've actually done with it, not just that you've "worked with" it.
 
-**For security professionals:** The calculus is different. Unless you're specifically doing cloud security, container security, or working in an organization that runs Kubernetes, it's likely not relevant to your day-to-day work. Most security roles (application security, GRC, SOC analysts, penetration testers focused on traditional infrastructure) won't encounter Kubernetes regularly.
+**For developers:** Learning the basics helps you collaborate with operations teams and helps you understand how your code runs in production, but deep expertise isn't explicitly necessary. Knowing how to read a Deployment manifest, understand why your pod is crashing, or interpret resource limits makes you more effective when debugging issues. You don't need to know how to set up a cluster from scratch or configure network policies. Focus on the parts that affect your code: how containers work, how environment variables and secrets get injected, how health checks function, and how to read logs. Leave the cluster administration to the platform team.
 
-Learning it isn't harmful, but there's an opportunity cost. Time spent learning Kubernetes is time not spent on skills more directly applicable to your role.
+For job seekers, listing Kubernetes as a developer is a nice-to-have, not a must-have. It signals that you understand modern deployment practices, but interviewers won't expect you to whiteboard cluster architecture. If you're applying to companies that mention Kubernetes in their stack, being able to say "I've deployed my apps to Kubernetes and can troubleshoot basic issues" is enough. Don't oversell it or claim expertise you don't have.
 
-**A middle-ground approach:** If you're in security and curious, consider understanding Kubernetes security concepts at a high level (RBAC, network policies, pod security) without going deep on operations.
+**For security professionals:** The calculus is *very* different. Unless you're specifically doing cloud security, container security, or working in an organization that runs Kubernetes, it's likely not relevant to your day-to-day work. Most security roles (application security, GRC, SOC analysts, penetration testers focused on traditional infrastructure) won't encounter Kubernetes with any level of regularity.
 
-**When it becomes relevant:** If you're eyeing a move into cloud or container security, or your organization is adopting Kubernetes, then learning it makes sense. These exercises would be a good starting point.
+Consider what you actually do day-to-day:
+
+- **Application security engineers** spend time on code review, SAST/DAST, threat modeling, and working with developers. Kubernetes rarely enters the picture unless you're reviewing infrastructure-as-code.
+- **GRC and compliance folks** care about policies, frameworks, and audit evidence. Kubernetes is just another system to assess against controls, not something requiring deep technical expertise.
+- **SOC analysts** are looking at alerts, logs, and incidents. You might see Kubernetes-related events in a SIEM, but you don't need to understand pod scheduling to investigate them.
+- **Traditional penetration testers** are testing networks, web apps, and Active Directory. Kubernetes engagements are a specialty niche, not the expectation.
+
+If Kubernetes doesn't show up in your work, learning it is a curiosity project, not a career necessity.
+
+Learning it isn't harmful, but there's certainly an opportunity cost. Time spent learning Kubernetes is time not spent on skills which may be more directly applicable to your role. That time could go toward learning a new exploitation technique, getting better at threat modeling, studying for a certification relevant to your job, or just getting better at the fundamentals of your craft.
+
+**For security job seekers specifically:** Look at the job postings you're interested in. If they mention Kubernetes, cloud security, or container security, then yes, learn it. If they don't, your time is probably better spent elsewhere. The security job market is competitive, and you want to optimize for skills that actually appear in the roles you're targeting.
+
+A common trap is adding every technology to your resume hoping something sticks. From an interviewer's perspective, I notice when candidates list Kubernetes but can't answer basic questions about it. If you do list Kubernetes, be ready to explain what you've done with it and discuss its security model.
+
+That said, cloud and container security roles are growing. If you're trying to break into security or pivot within it, specializing in this area is a strategy. The demand is real, and there's less competition than in traditional security roles because the skill set is newer.
+
+**A middle-ground approach:** If you're in security and curious, consider understanding Kubernetes security concepts at a high level (RBAC, network policies, pod security) without going deep on operations. Know what the attack surface looks like. Understand why a privileged container is dangerous. Be able to read a manifest and spot red flags. You don't need to know how to install Calico or troubleshoot kubelet issues. This gives you enough context to have informed conversations and assess risk without becoming a Kubernetes administrator.
+
+This level of knowledge is also enough for most interviews. If a security role asks about Kubernetes and it's not specifically a cloud security position, they usually want to know that you understand the risks, not that you can administer a cluster.
+
+**When it becomes relevant:** If you're eyeing a move into cloud or container security, or your workplace is adopting Kubernetes, then learning it makes sense. Cloud security roles increasingly expect Kubernetes knowledge because so many organizations run workloads on EKS, GKE, or AKS. Container security is a growing specialty with dedicated tools (Falco, Trivy, kubescape) and real demand. If your company is migrating to Kubernetes, getting ahead of that curve makes you valuable. These exercises would be a good starting point for any of those scenarios.
+
+**The bottom line for job seekers:** Be strategic. Look at actual job postings for roles you want. Count how many mention Kubernetes. If it's most of them (at the time of writing this (December 2025), it most definitely is not in the majority), prioritize learning it. If it's few or none, spend your time on skills that will actually get you hired. The goal is to land a job, not to collect technologies.
+
+For those who want to go into the "security engineering" space rather than GRC, SOC analyst, or application security roles, Kubernetes may become more relevant. Security engineering often sits closer to infrastructure, building security tooling, hardening systems, and working alongside platform teams. In that world, understanding how Kubernetes works is increasingly becoming a part of the job.
 
 ---
 
