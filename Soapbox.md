@@ -70,7 +70,7 @@ Consider what you actually do day-to-day:
 
 If Kubernetes doesn't show up in your work, learning it is a curiosity project, not a career necessity.
 
-Learning it isn't harmful, but there's certainly an opportunity cost. Time spent learning Kubernetes is time not spent on skills which may be more directly applicable to your role. That time could go toward learning a new exploitation technique, getting better at threat modeling, studying for a certification relevant to your job, or just getting better at the fundamentals of your craft.
+Learning it isn't harmful, but there's certainly an opportunity cost. Time spent learning Kubernetes is time not spent on skills which may be more directly applicable to your role. That time could go toward learning a new exploitation technique, getting better at threat modeling, studying for a certification relevant to your job, or just getting better at security fundamentals.
 
 **For security job seekers specifically:** Look at the job postings you're interested in. If they mention Kubernetes, cloud security, or container security, then yes, learn it. If they don't, your time is probably better spent elsewhere. The security job market is competitive, and you want to optimize for skills that actually appear in the roles you're targeting.
 
