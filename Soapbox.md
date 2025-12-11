@@ -104,7 +104,7 @@ Kubernetes was designed for Google-scale problems. Unless you're operating at si
 
 **You don't need to scale dynamically.** If your traffic is predictable and you're not constantly scaling up and down, you're paying the complexity tax of Kubernetes without using its primary benefit.
 
-**You're a startup trying to move fast.** In the early stages, speed of iteration matters more than perfect infrastructure. You can always migrate to Kubernetes later when you actually need it. Premature optimization applies to infrastructure too.
+**You're a project that is trying to move fast.** In the early stages of development, speed of iteration matters more than perfect infrastructure. You can always migrate to Kubernetes later when you actually need it. Premature optimization applies to infrastructure too.
 
 **You're running a single container or a handful of services.** Docker Compose on a single VM is simpler, faster to set up, and easier to understand. You can run a surprisingly large workload on a single well-provisioned server.
 
