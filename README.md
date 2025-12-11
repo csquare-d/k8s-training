@@ -1,11 +1,8 @@
-# Kubernetes Security Lab
+# Kubernetes Training
 
-A hands-on lab environment for learning Kubernetes fundamentals and security. This repo provides a setup script for a k3s cluster with full network policy support, kubectl exercises for beginners, security-focused labs, and an attack simulation to tie it all together.
+A hands-on lab environment for learning Kubernetes fundamentals and basic security. This repo provides a setup script for a k3s cluster with full network policy support, kubectl exercises for beginners, security-focused exercises, and a basic attack simulation.
 
 ## Overview
-
-This lab is designed to take you from kubectl basics to Kubernetes security fundamentals, culminating in a hands-on attack scenario where you exploit real misconfigurations. Whether you're new to Kubernetes or looking to strengthen your security knowledge, these exercises provide practical experience.
-
 **What you'll learn:**
 
 - Essential kubectl commands and workflows
@@ -15,6 +12,20 @@ This lab is designed to take you from kubectl basics to Kubernetes security fund
 - Implementing zero-trust networking with network policies
 - Why Kubernetes secrets aren't as secure as you might think
 - How attackers exploit misconfigurations (and how to prevent it)
+
+## Before You Begin
+
+**Start here:** [Soapbox.md](Soapbox.md)
+
+Before diving into any of the exercises, please consider reading `Soapbox.md`. It covers:
+
+- What Kubernetes actually is and the problems it solves
+- Why you probably don't need Kubernetes (and when you do)
+- Whether learning Kubernetes is worth your time based on your (potential/current) role
+- Comparisons with alternatives like Docker Compose, Swarm, and managed services
+- Why I even made this training in the first place
+
+It's not required reading, but I like to think that it provides useful context and will help you decide how much time to invest here.
 
 ## Prerequisites
 
@@ -28,7 +39,8 @@ This lab is designed to take you from kubectl basics to Kubernetes security fund
 ```
 k8s-training/
 ├── README.md
-├── setup-k3s.sh
+├── Soapbox.md
+├── k3s-setup.sh
 └── exercises/
     ├── learn-kubectl.md
     ├── k8s-security-exercises.md
@@ -172,7 +184,7 @@ The scenario walks you through a realistic attack chain, from initial pod access
 ┌─────────────────────────────────────────────────────────────────┐
 │  New to Kubernetes?                                             │
 │                                                                 │
-│  1. Run setup-k3s.sh                                            │
+│  1. Run k3s-setup.sh                                            │
 │  2. Complete exercises/learn-kubectl.md (Parts 1-9)             │
 │  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)    │
 │  4. Run the attack scenario to test your knowledge              │
@@ -181,7 +193,7 @@ The scenario walks you through a realistic attack chain, from initial pod access
 ┌─────────────────────────────────────────────────────────────────┐
 │  Already know kubectl?                                          │
 │                                                                 │
-│  1. Run setup-k3s.sh                                            │
+│  1. Run k3s-setup.sh                                            │
 │  2. Skim exercises/learn-kubectl.md for any new tips            │
 │  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)    │
 │  4. Run the attack scenario to test your knowledge              │
@@ -190,7 +202,7 @@ The scenario walks you through a realistic attack chain, from initial pod access
 ┌─────────────────────────────────────────────────────────────────┐
 │  Straight to the good stuff?                                    │
 │                                                                 │
-│  1. Run setup-k3s.sh                                            │
+│  1. Run k3s-setup.sh                                            │
 │  2. Jump straight to the attack scenario                        │
 │  3. Use the security exercises as reference when stuck          │
 └─────────────────────────────────────────────────────────────────┘
@@ -218,6 +230,5 @@ To completely remove k3s:
 ```
 
 ## Resources
-
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
 - [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
