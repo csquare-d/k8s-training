@@ -92,7 +92,7 @@ For those who want to go into the "security engineering" space rather than GRC, 
 
 ## The Honest Truth: You Probably Don't Need Kubernetes
 
-Here's something that often gets lost in the hype: **most applications don't need Kubernetes**.
+Here's something that often gets glossed over: **most applications don't need Kubernetes**.
 
 Kubernetes was designed for Google-scale problems. Unless you're operating at significant scale or have specific requirements that align with Kubernetes' strengths, you're likely adding complexity without proportional benefit.
 
