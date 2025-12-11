@@ -1,10 +1,10 @@
 # Kubernetes Security Lab
 
-A hands-on lab environment for learning Kubernetes fundamentals and security. This repo provides a setup script for a k3s cluster with full network policy support, kubectl exercises for beginners, and security-focused labs covering RBAC, pod security, network policies, secrets management, and cluster auditing.
+A hands-on lab environment for learning Kubernetes fundamentals and security. This repo provides a setup script for a k3s cluster with full network policy support, kubectl exercises for beginners, security-focused labs, and an attack simulation to tie it all together.
 
 ## Overview
 
-This lab is designed to take you from kubectl basics to Kubernetes security fundamentals. Whether you're new to Kubernetes or looking to strengthen your security knowledge, these exercises provide practical, hands-on experience.
+This lab is designed to take you from kubectl basics to Kubernetes security fundamentals, culminating in a hands-on attack scenario where you exploit real misconfigurations. Whether you're new to Kubernetes or looking to strengthen your security knowledge, these exercises provide practical experience.
 
 **What you'll learn:**
 
@@ -14,7 +14,7 @@ This lab is designed to take you from kubectl basics to Kubernetes security fund
 - Hardening pods with security contexts
 - Implementing zero-trust networking with network policies
 - Why Kubernetes secrets aren't as secure as you might think
-- How to audit a cluster for common security issues
+- How attackers exploit misconfigurations (and how to prevent it)
 
 ## Prerequisites
 
@@ -28,10 +28,13 @@ This lab is designed to take you from kubectl basics to Kubernetes security fund
 ```
 k8s-training/
 ├── README.md
-├── k8s-setup.sh
+├── setup-k3s.sh
 └── exercises/
-    ├── k8s-basics.md
-    └── security-exercises.md
+    ├── learn-kubectl.md
+    ├── k8s-security-exercises.md
+    ├── attack-scenario.md
+    ├── attack-setup.sh
+    └── attack-cleanup.sh
 ```
 
 ## Quick Start
@@ -72,7 +75,7 @@ kubectl get pods -n calico-system
 
 ### 3. Start the Exercises
 
-The exercises are located in the `exercises/` subdirectory. Start with kubectl basics if you're new to Kubernetes, then move on to security.
+The exercises are located in the `exercises/` subdirectory. Start with kubectl basics if you're new to Kubernetes, then progress through security and finally the attack scenario.
 
 ```bash
 cd exercises/
@@ -123,54 +126,74 @@ Once you're comfortable with kubectl, dive into security. These exercises cover 
 | 4 | Secrets Management | Beginner | 10 min |
 | 5 | Cluster Auditing | Intermediate | 15 min |
 
-#### Exercise 1: RBAC
+**Key concepts covered:**
 
-Create a service account with limited permissions and verify that it can only perform allowed actions. You'll learn how Roles, RoleBindings, and the principle of least privilege work in Kubernetes.
+- Roles, ClusterRoles, and RoleBindings
+- Security contexts (`runAsNonRoot`, `readOnlyRootFilesystem`, capabilities)
+- Network policies and zero-trust networking
+- Secrets and their limitations
+- Auditing clusters for misconfigurations
 
-**Key concepts:** Roles vs ClusterRoles, RoleBindings vs ClusterRoleBindings, service accounts, `kubectl auth can-i`
+### Part 3: Attack Scenario
 
-#### Exercise 2: Pod Security Contexts
+**File:** `exercises/attack-scenario.md`
 
-Deploy both an insecure and a hardened pod, then compare them. You'll see how to run containers as non-root, use read-only filesystems, and drop Linux capabilities.
+Put your knowledge to the test! This capture-the-flag style exercise deploys an intentionally vulnerable environment where you'll exploit common misconfigurations.
 
-**Key concepts:** `runAsNonRoot`, `readOnlyRootFilesystem`, `allowPrivilegeEscalation`, dropping capabilities
+| Flag | Objective | Vulnerability |
+|------|-----------|---------------|
+| 1 | Find database credentials | Secrets in environment variables |
+| 2 | Access another namespace's secrets | Overly permissive RBAC |
+| 3 | Escape to the host | Privileged container + hostPath mount |
+| 4 | Gain cluster-admin | Node credential theft |
 
-#### Exercise 3: Network Policies
+**How to run:**
 
-Implement a default-deny network policy, then selectively allow traffic between specific pods. This exercise requires Calico (which the setup script installs).
+```bash
+cd exercises/
 
-**Key concepts:** Default-deny policies, ingress/egress rules, pod selectors, zero-trust networking
+# Deploy the vulnerable environment
+chmod +x attack-scenario-setup.sh
+./attack-scenario-setup.sh
 
-#### Exercise 4: Secrets Management
+# Start your attack from the compromised pod
+kubectl exec -it -n webapp deploy/vulnerable-app -- /bin/sh
 
-Explore how Kubernetes secrets work and understand their limitations. You'll see that secrets are only base64-encoded (not encrypted) and learn about better alternatives.
+# When finished, clean up
+chmod +x attack-scenario-cleanup.sh
+./attack-scenario-cleanup.sh
+```
 
-**Key concepts:** Base64 encoding vs encryption, accessing secrets from pods, RBAC for secrets, external secret managers
-
-#### Exercise 5: Cluster Auditing
-
-Use `kubectl` and `jq` to find common security issues in a cluster, such as pods running as root, privileged containers, and overly permissive service accounts.
-
-**Key concepts:** Identifying insecure pods, finding privileged containers, auditing RBAC permissions
+The scenario walks you through a realistic attack chain, from initial pod access to full cluster compromise. Each flag teaches you a specific vulnerability and how to defend against it.
 
 ## Recommended Learning Path
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  New to Kubernetes?                                         │
-│                                                             │
-│  1. Run setup-k3s-calico.sh                                 │
-│  2. Complete exercises/learn-kubectl.md (Parts 1-9)         │
-│  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)│
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  New to Kubernetes?                                             │
+│                                                                 │
+│  1. Run setup-k3s.sh                                            │
+│  2. Complete exercises/learn-kubectl.md (Parts 1-9)             │
+│  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)    │
+│  4. Run the attack scenario to test your knowledge              │
+└─────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────────┐
-│  Already know kubectl?                                      │
-│                                                             │
-│  1. Run setup-k3s-calico.sh                                 │
-│  2. Skim exercises/learn-kubectl.md for any new tips        │
-│  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)│
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  Already know kubectl?                                          │
+│                                                                 │
+│  1. Run setup-k3s.sh                                            │
+│  2. Skim exercises/learn-kubectl.md for any new tips            │
+│  3. Complete exercises/k8s-security-exercises.md (Parts 1-5)    │
+│  4. Run the attack scenario to test your knowledge              │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Straight to the good stuff?                                    │
+│                                                                 │
+│  1. Run setup-k3s.sh                                            │
+│  2. Jump straight to the attack scenario                        │
+│  3. Use the security exercises as reference when stuck          │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Cleanup
@@ -179,10 +202,13 @@ To delete all resources created during the exercises:
 
 ```bash
 # Delete the learning lab namespace
-kubectl delete namespace learning-lab
+kubectl delete namespace learning-lab --ignore-not-found
 
 # Delete the security lab namespace
-kubectl delete namespace security-lab
+kubectl delete namespace security-lab --ignore-not-found
+
+# Clean up attack scenario (if deployed)
+./exercises/attack-scenario-cleanup.sh
 ```
 
 To completely remove k3s:
@@ -190,16 +216,6 @@ To completely remove k3s:
 ```bash
 /usr/local/bin/k3s-uninstall.sh
 ```
-
-## Next Steps
-
-After completing these exercises, consider exploring:
-
-- **[Kubernetes Goat](https://github.com/madhuakula/kubernetes-goat)** — An intentionally vulnerable cluster for practicing attacks and defenses
-- **[Kyverno](https://kyverno.io/)** or **[OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/)** — Policy engines for enforcing security policies automatically
-- **[kubescape](https://github.com/kubescape/kubescape)** — Security scanning and compliance tool
-- **[kube-bench](https://github.com/aquasecurity/kube-bench)** — CIS Kubernetes Benchmark checks
-- **[Trivy](https://github.com/aquasecurity/trivy)** — Container image vulnerability scanner
 
 ## Resources
 
