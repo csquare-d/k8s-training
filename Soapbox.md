@@ -1,6 +1,6 @@
 # Understanding Kubernetes: Purpose, Trade-offs, and When to Use It
 
-A practical guide to understanding what Kubernetes is, why it exists, and whether it's the right choice for your project.
+A practical guide to understanding what Kubernetes is, why it exists, and whether it's the right choice for your project and career.
 
 ## Why I Made This Training
 
