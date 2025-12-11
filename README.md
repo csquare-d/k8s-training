@@ -29,7 +29,7 @@ It's not required reading, but I like to think that it provides useful context a
 
 ## Prerequisites
 
-- A Linux system (Ubuntu 20.04+, Debian 11+, RHEL 8+, or similar)
+- A Linux system (Ubuntu 20.04+, Debian 11+, RHEL 8+, or similar) VM is `OK`
 - `curl` installed
 - `sudo` access
 - At least 2GB of RAM available
