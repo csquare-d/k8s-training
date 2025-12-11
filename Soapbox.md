@@ -110,9 +110,9 @@ Kubernetes was designed for Google-scale problems. Unless you're operating at si
 
 ### The Hidden Costs of Kubernetes
 
-**Operational complexity**: Kubernetes clusters require maintenance—upgrades, security patches, monitoring, backup strategies. Even managed Kubernetes (EKS, GKE, AKS) doesn't eliminate this; it just shifts some of the burden.
+**Operational complexity**: Kubernetes clusters require maintenance, upgrades, security patches, monitoring, backup strategies. Even managed Kubernetes (EKS, GKE, AKS) doesn't eliminate this; it just shifts some of the burden.
 
-**Learning curve**: Kubernetes has a vast surface area. Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, RBAC, Network Policies, PersistentVolumes, StatefulSets, DaemonSets, CRDs... the list goes on. Your team needs to understand these concepts to operate effectively.
+**Learning curve**: Kubernetes has a vast surface area. Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, RBAC, Network Policies, PersistentVolumes, StatefulSets, DaemonSets, CRDs... the list goes on. You or your team needs to understand these concepts to operate effectively.
 
 **Debugging difficulty**: When something goes wrong in Kubernetes, debugging can be challenging. Issues might be in your application, the container, the pod configuration, the network policy, the service mesh, the ingress controller, or the cluster itself.
 
