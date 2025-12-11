@@ -6,7 +6,7 @@ A practical guide to understanding what Kubernetes is, why it exists, and whethe
 
 I work on a project with a niche use case. We're not solving Google-scale problems, but we genuinely benefit from the features Kubernetes provides. It fits our needs well, even if we're not running thousands of containers across dozens of nodes.
 
-I put this training together not because I'm an expert or because I think you should dedicate all your time to learning Kubernetes. I made it because I think it's an interesting technology, and the most common question I hear at work, even among very smart engineers, is still "what is Kubernetes?"
+I put this training together not because I'm an expert or because I think you should dedicate all your time to learning Kubernetes. I made it because I think it's an interesting technology, and some of the most common question I hear at work, even among very smart and talented engineers, is still "what is Kubernetes?" or "How does Kubernetes work?"
 
 That question is surprisingly hard to answer without diving into containers, orchestration, distributed systems, and a dozen other concepts. I wanted to create something that serves as a primer: what Kubernetes is, how to use it at a basic level, and some security-related stuff too.
 
