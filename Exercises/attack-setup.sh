@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Attack Scenario Setup Script
+# Attack Setup Script
 # Deploys intentionally vulnerable resources for learning Kubernetes security
 
 set -e
@@ -8,6 +8,7 @@ set -e
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
 NC='\033[0m'
 
 log_info() {
@@ -16,6 +17,10 @@ log_info() {
 
 log_warn() {
     echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+log_step() {
+    echo -e "${CYAN}[STEP]${NC} $1"
 }
 
 echo ""
@@ -38,11 +43,19 @@ if ! kubectl cluster-info &> /dev/null; then
     exit 1
 fi
 
-log_info "Creating namespaces..."
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+log_step "Creating namespaces..."
 kubectl create namespace webapp --dry-run=client -o yaml | kubectl apply -f -
 kubectl create namespace payments --dry-run=client -o yaml | kubectl apply -f -
 
-log_info "Creating Flag 1: Database credentials in environment variables..."
+log_step "Creating vulnerable web application code (ConfigMap)..."
+kubectl create configmap vulnerable-app-code -n webapp \
+    --from-file=app.py="${SCRIPT_DIR}/vulnerable-app/app.py" \
+    --dry-run=client -o yaml | kubectl apply -f -
+
+log_step "Creating Flag 1: Database credentials in environment variables..."
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
@@ -54,7 +67,7 @@ stringData:
   password: "flag1-sup3r-s3cr3t-passw0rd"
 EOF
 
-log_info "Creating Flag 2: Payment API secret in payments namespace..."
+log_step "Creating Flag 2: Payment API secret in payments namespace..."
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
@@ -66,7 +79,7 @@ stringData:
   api-key: "flag2-payment-api-key-12345"
 EOF
 
-log_info "Creating overly permissive ClusterRole..."
+log_step "Creating overly permissive ClusterRole..."
 kubectl apply -f - <<EOF
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -83,7 +96,7 @@ rules:
   verbs: ["create"]
 EOF
 
-log_info "Creating ServiceAccount with overprivileged binding..."
+log_step "Creating ServiceAccount with overprivileged binding..."
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
@@ -105,7 +118,7 @@ subjects:
   namespace: webapp
 EOF
 
-log_info "Deploying vulnerable web application..."
+log_step "Deploying vulnerable web application (Flag 0: Initial Access)..."
 kubectl apply -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
@@ -125,8 +138,15 @@ spec:
       serviceAccountName: webapp-sa
       containers:
       - name: app
-        image: alpine:latest
-        command: ["/bin/sh", "-c", "apk add --no-cache curl && sleep infinity"]
+        image: python:3.11-slim
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            apt-get update && apt-get install -y iputils-ping curl --no-install-recommends
+            pip install flask --quiet --disable-pip-version-check
+            python /app/app.py
+        ports:
+        - containerPort: 8080
         env:
         # VULNERABLE: Secrets passed as environment variables
         - name: DB_HOST
@@ -140,17 +160,44 @@ spec:
               key: password
         - name: APP_ENV
           value: "production"
+        volumeMounts:
+        - name: app-code
+          mountPath: /app
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: app-code
+        configMap:
+          name: vulnerable-app-code
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vulnerable-app
+  namespace: webapp
+spec:
+  type: NodePort
+  selector:
+    app: vulnerable-app
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30080
 EOF
 
-log_info "Creating Flag 3: Host flag file..."
-# Create flag on host (requires sudo)
+log_step "Creating Flag 3: Host flag file..."
 if sudo sh -c 'echo "flag3-h0st-f1l3syst3m-acc3ss" > /etc/flag3.txt'; then
     log_info "Created /etc/flag3.txt on host"
 else
     log_warn "Could not create host flag (may need sudo). Skipping Flag 3 setup."
 fi
 
-log_info "Deploying privileged debug pod (the backdoor)..."
+log_step "Deploying privileged debug pod (the backdoor)..."
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -160,17 +207,14 @@ metadata:
   labels:
     app: debug
 spec:
-  # VULNERABLE: Using overprivileged service account
   serviceAccountName: webapp-sa
   containers:
   - name: debug
     image: alpine:latest
     command: ["/bin/sh", "-c", "sleep infinity"]
     securityContext:
-      # VULNERABLE: Privileged container
       privileged: true
     volumeMounts:
-    # VULNERABLE: Host filesystem mounted
     - name: host-fs
       mountPath: /host
   volumes:
@@ -180,7 +224,7 @@ spec:
       type: Directory
 EOF
 
-log_info "Creating Flag 4: Cluster admin flag..."
+log_step "Creating Flag 4: Cluster admin flag..."
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
@@ -192,9 +236,20 @@ stringData:
   flag: "flag4-full-cluster-compromise"
 EOF
 
-log_info "Waiting for pods to be ready..."
-kubectl wait --for=condition=Ready pod -l app=vulnerable-app -n webapp --timeout=120s
+log_step "Waiting for pods to be ready..."
+echo "Waiting for vulnerable-app deployment (this may take a minute for image pull)..."
+kubectl wait --for=condition=Available deployment/vulnerable-app -n webapp --timeout=300s || {
+    log_warn "Deployment taking longer than expected. Check pod status with:"
+    echo "  kubectl get pods -n webapp"
+    echo "  kubectl logs -n webapp -l app=vulnerable-app"
+}
 kubectl wait --for=condition=Ready pod/debug-pod -n webapp --timeout=120s
+
+# Get access information
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+if [[ -z "$NODE_IP" ]]; then
+    NODE_IP="localhost"
+fi
 
 echo ""
 echo "=========================================="
@@ -202,20 +257,46 @@ echo -e "${GREEN}  Setup Complete!${NC}"
 echo "=========================================="
 echo ""
 echo "Vulnerabilities deployed:"
-echo "  • Webapp with credentials in env vars"
-echo "  • Overprivileged ServiceAccount (cross-namespace secret access)"
-echo "  • Privileged debug pod with host filesystem mount"
-echo "  • Flag secrets in multiple namespaces"
+echo "  • Vulnerable web app with command injection (Flag 0)"
+echo "  • Webapp with credentials in env vars (Flag 1)"
+echo "  • Overprivileged ServiceAccount (Flag 2)"
+echo "  • Privileged debug pod with host mount (Flag 3)"
+echo "  • Cluster admin flag (Flag 4)"
 echo ""
-echo "Start the attack:"
+echo "=========================================="
+echo -e "${CYAN}  TARGET INFORMATION${NC}"
+echo "=========================================="
 echo ""
-echo "  kubectl exec -it -n webapp deploy/vulnerable-app -- /bin/sh"
+echo "The vulnerable web application is exposed at:"
+echo ""
+echo -e "  ${GREEN}http://${NODE_IP}:30080${NC}"
+echo ""
+echo "If running locally, try:"
+echo -e "  ${GREEN}http://localhost:30080${NC}"
+echo ""
+echo "=========================================="
 echo ""
 echo "Your objectives:"
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+echo " Flag 0: Gain initial access via the web application"
+echo " Flag 1: Find the database password"
+echo " Flag 2: Read a secret from the payments namespace"
+echo " Flag 3: Read a file from the host filesystem"
+echo " Flag 4: Gain cluster-admin access"
+echo ""
+echo "Start by exploring the web application!"
+=======
+>>>>>>> Stashed changes
 echo "  Flag 1: Find the database password"
 echo "  Flag 2: Read a secret from the payments namespace"
 echo "  Flag 3: Read a file from the host filesystem"
 echo "  Flag 4: Gain cluster-admin access"
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0c37046320ce4aee5668a6cbc40b6ffe7a5dc36f
+>>>>>>> Stashed changes
 echo ""
 echo "Good luck!"
 echo ""

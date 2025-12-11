@@ -36,18 +36,25 @@ It's not required reading, but I like to think that it provides useful context a
 
 ## Repository Structure
 
-```
 k8s-training/
 ├── README.md
-├── Soapbox.md
+├── soapbox.md
 ├── k3s-setup.sh
 └── exercises/
     ├── learn-kubectl.md
     ├── k8s-security-exercises.md
-    ├── attack-scenario.md
+    ├── attack-scenario.md              # Basic (guided)
     ├── attack-setup.sh
-    └── attack-cleanup.sh
-```
+    ├── attack-cleanup.sh
+    ├── advanced-attack-scenario.md     # Advanced (multi-path)
+    ├── advanced-attack-setup.sh
+    ├── advanced-attack-cleanup.sh
+    ├── vulnerable-app/
+    │   └── app.py
+    └── advanced-vulnerable-apps/
+        ├── admin-panel.py
+        ├── internal-api.py
+        └── legacy-app.py
 
 ## Quick Start
 
@@ -57,10 +64,10 @@ The setup script installs k3s with Calico CNI, which provides full network polic
 
 ```bash
 # Make the script executable
-chmod +x setup-k3s-calico.sh
+chmod +x k3s-setup.sh
 
 # Run the setup (as a regular user, not root)
-./setup-k3s-calico.sh
+./k3s-setup.sh
 ```
 
 The script will:
@@ -98,7 +105,7 @@ ls -la
 
 ### Part 1: Learn kubectl (Prerequisite)
 
-**File:** `exercises/learn-kubectl.md`
+**File:** `exercises/k8s-basics.md`
 
 If you're new to Kubernetes or want a refresher, start here. This guide covers essential kubectl commands through nine hands-on exercises.
 
@@ -165,16 +172,46 @@ Put your knowledge to the test! This capture-the-flag style exercise deploys an 
 cd exercises/
 
 # Deploy the vulnerable environment
-chmod +x attack-scenario-setup.sh
-./attack-scenario-setup.sh
+chmod +x attack-setup.sh
+./attack-setup.sh
 
 # Start your attack from the compromised pod
 kubectl exec -it -n webapp deploy/vulnerable-app -- /bin/sh
 
 # When finished, clean up
-chmod +x attack-scenario-cleanup.sh
-./attack-scenario-cleanup.sh
+chmod +x attack-cleanup.sh
+./attack-cleanup.sh
 ```
+### Part 4: Advanced Attack Scenario (Multi-Path)
+
+**File:** `exercises/advanced-attack-scenario.md`
+
+A more complete scenario with multiple entry points and attack paths. Unguided.
+
+**External Targets:**
+| Service | Port | Vulnerabilities |
+|---------|------|-----------------|
+| Admin Panel | 30081 | Default creds, debug endpoints, command exec |
+| Legacy App | 30082 | Command injection, path traversal, exposed backups |
+
+**Objectives:**
+| Goal |
+|------|
+| Find database credentials |
+| Access payment gateway API key |
+| Obtain internal API key |
+| Retrieve CEO credentials (crown jewels) |
+| Escape to host filesystem |
+| Achieve cluster-admin |
+
+**How to run:**
+
+```bash
+cd exercises/
+
+# Deploy the advanced environment
+chmod +x advanced-attack-setup.sh
+./advanced-attack-setup.sh
 
 The scenario walks you through a realistic attack chain, from initial pod access to full cluster compromise. Each flag teaches you a specific vulnerability and how to defend against it.
 
@@ -205,6 +242,15 @@ The scenario walks you through a realistic attack chain, from initial pod access
 │  1. Run k3s-setup.sh                                            │
 │  2. Jump straight to the attack scenario                        │
 │  3. Use the security exercises as reference when stuck          │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Want a challenge?                                              │
+│                                                                 │
+│  1. Run k3s-setup.sh                                            │
+│  2. Run advanced-attack-setup.sh                                │
+│  3. Find your own path - no hints!                              │
+│  4. Document all vulnerabilities discovered                     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
