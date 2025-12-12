@@ -118,7 +118,7 @@ Kubernetes was designed for Google-scale problems. Unless you're operating at si
 
 **Resource overhead**: Kubernetes itself consumes resources. The control plane, monitoring, logging, and networking components all require CPU and memory. For small workloads, this overhead can be a significant percentage of your total resource usage.
 
-**Cost**: Running a Kubernetes cluster—even a managed one—costs more than simpler alternatives. You're paying for control plane nodes, worker node overhead, load balancers, and often additional tooling.
+**Cost**: Running a Kubernetes cluster, even a managed one, costs more than simpler alternatives. You're paying for control plane nodes, worker node overhead, load balancers, and often additional tooling.
 
 ---
 
@@ -169,7 +169,7 @@ Despite the caveats, Kubernetes is genuinely excellent for certain use cases:
 
 **Advantages of Docker Swarm**:
 - Much simpler than Kubernetes
-- Built into Docker—no additional installation
+- Built into Docker, no additional installation needed
 - Familiar Docker Compose syntax (with some modifications)
 - Easier learning curve
 - Good enough for many production workloads
@@ -179,7 +179,7 @@ Despite the caveats, Kubernetes is genuinely excellent for certain use cases:
 - More features (RBAC, network policies, custom resources)
 - Better support from cloud providers
 - More tooling and integrations
-- Industry momentum (more job opportunities, more documentation)
+- Industry momentum (more job opportunities, more documentation, rich ecosystem)
 
 **The reality**: Docker Swarm is technically capable and much simpler than Kubernetes. It "lost" not because of technical inferiority but because of ecosystem momentum. For small-to-medium workloads, Swarm remains a valid choice, but finding Swarm expertise and tooling is increasingly difficult.
 
