@@ -279,7 +279,10 @@ echo ""
 echo "Your objectives:"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -292,6 +295,9 @@ echo ""
 echo "Start by exploring the web application!"
 =======
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -301,6 +307,10 @@ echo "  Flag 3: Read a file from the host filesystem"
 echo "  Flag 4: Gain cluster-admin access"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0c37046320ce4aee5668a6cbc40b6ffe7a5dc36f
+>>>>>>> Stashed changes
 =======
 >>>>>>> 0c37046320ce4aee5668a6cbc40b6ffe7a5dc36f
 >>>>>>> Stashed changes

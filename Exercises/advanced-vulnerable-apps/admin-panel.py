@@ -129,7 +129,11 @@ HTML_TEMPLATE = """
 <body>
     <div class="header">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <h1>ACME Corp Admin Panel</h1>
+=======
+        <h1>🔐 ACME Corp Admin Panel</h1>
+>>>>>>> Stashed changes
 =======
         <h1>🔐 ACME Corp Admin Panel</h1>
 >>>>>>> Stashed changes
@@ -189,7 +193,11 @@ HTML_TEMPLATE = """
         {% elif page == 'console' %}
         <h2>Debug Console</h2>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <div class="warning">Warning: This console executes commands on the server. Use with caution.</div>
+=======
+        <div class="warning">⚠️ Warning: This console executes commands on the server. Use with caution.</div>
+>>>>>>> Stashed changes
 =======
         <div class="warning">⚠️ Warning: This console executes commands on the server. Use with caution.</div>
 >>>>>>> Stashed changes

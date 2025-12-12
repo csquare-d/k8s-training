@@ -35,7 +35,7 @@ It's not required reading, but I like to think that it provides useful context a
 - At least 2GB of RAM available
 
 ## Repository Structure
-
+```
 k8s-training/
 ├── README.md
 ├── soapbox.md
@@ -55,7 +55,7 @@ k8s-training/
         ├── admin-panel.py
         ├── internal-api.py
         └── legacy-app.py
-
+```
 ## Quick Start
 
 ### 1. Set Up the Cluster
