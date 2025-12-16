@@ -212,9 +212,10 @@ cd exercises/
 # Deploy the advanced environment
 chmod +x advanced-attack-setup.sh
 ./advanced-attack-setup.sh
-
-The scenario walks you through a realistic attack chain, from initial pod access to full cluster compromise. Each flag teaches you a specific vulnerability and how to defend against it.
 ```
+
+The scenario walks you through an attack chain, from initial pod access to full cluster compromise. Each flag teaches you a specific vulnerability and how to defend against it.
+
 
 ## Recommended Learning Path
 
