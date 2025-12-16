@@ -370,7 +370,7 @@ Here's a simple way to decide whether to use Kubernetes:
                      ▼              ▼
         ┌─────────────────┐   ┌─────────────────────────┐
         │ Do you have the │   │ Consider simpler        │
-        │ team/expertise  │   │ alternatives:           │
+        │ time/expertise  │   │ alternatives:           │
         │ to operate it?  │   │ • Docker Compose        │
         │                 │   │ • Managed containers    │
         └─────────────────┘   │ • PaaS                  │
@@ -393,22 +393,22 @@ Here's a simple way to decide whether to use Kubernetes:
 
 2. **What's the simplest solution that works?** Start simple and add complexity only when needed. You can always migrate to Kubernetes later.
 
-3. **Who will operate this?** Kubernetes requires ongoing maintenance. Can you (and want to) do this?
+3. **Who will operate this?** Kubernetes requires ongoing maintenance. Can you (and do you want to) do this?
 
-4. **What's our scale?** Are you running 3 containers or 300? The answer changes the calculus significantly.
+4. **What's our scale?** Are you running 3 containers or 300? The answer changes the answer significantly.
 
-5. **What's our timeline?** If you need to ship quickly, a simpler solution now plus migration later might be better than learning Kubernetes under deadline pressure.
+5. **What's our timeline?** If you need/want to build quickly, a simpler solution now plus migration later might be better than learning Kubernetes. "Putting the cart before the horse" comes to mind.
 
 ---
 
 ## Conclusion
 
-Kubernetes is a powerful platform that solves real problems at scale. It has become the industry standard for container orchestration, backed by a massive ecosystem and community.
+Kubernetes is a powerful platform that solves real problems at scale. It has become the industry standard for container orchestration, backed by a massive ecosystem and community to support it.
 
-But it's not the right choice for everyone. The complexity is real, and for many applications, simpler alternatives provide better outcomes with less effort.
+But it's not the right choice for everyone. The complexity is real, and for many applications, simpler alternatives provide similar outcomes with less effort.
 
 The best infrastructure decision is the one that lets you ship reliable software efficiently. Sometimes that's Kubernetes. Often, it's something simpler.
 
-Don't adopt Kubernetes because it's trendy. Adopt it because you've evaluated the alternatives and determined it's the right fit for your specific needs and scale.
+Don't adopt Kubernetes because it's what Google does. Adopt it because you've evaluated the alternatives and determined it's the right fit for your specific needs and scale.
 
 ---
