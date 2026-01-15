@@ -4,9 +4,9 @@ A practical guide to understanding what Kubernetes is, why it exists, and whethe
 
 ## Why I Made This Training
 
-I work on a project with a niche use case. We're not solving Google-scale problems, but we genuinely benefit from the features Kubernetes provides. It fits our needs well, even if we're not running thousands of containers across dozens of nodes.
+I used to work on a project with a rather niche use case. We were not solving Google-scale problems, but we genuinely benefited from the features that Kubernetes provides. It fit our needs well, even though we were not running thousands of containers across dozens of nodes.
 
-I put this training together not because I'm an expert or because I think you should dedicate all your time to learning Kubernetes. I made it because I think it's an interesting technology, and some of the most common question I hear at work, even among very smart and talented engineers, is still "what is Kubernetes?" or "How does Kubernetes work?"
+I put this training together not because I'm an expert or because I think you should dedicate all your time to learning Kubernetes. I made it because I think it's an interesting technology, and some of the most common question I hear at work, even among very smart and talented engineers, is still "what is Kubernetes?" or "How does Kubernetes work?".
 
 Those questions are surprisingly hard to answer without diving into containers, orchestration, distributed systems, and a dozen other concepts. I wanted to create something that serves as a primer: what Kubernetes is, how to use it at a basic level, and some security-related stuff too.
 
@@ -51,7 +51,7 @@ Kubernetes provides answers to all of these through a declarative system: you te
 
 It depends on your role, goals, and where you are in your career.
 
-**For infrastructure engineers, DevOps peeps, and platform engineering:** Kubernetes knowledge is increasingly expected. It's become an industry standard ask for these positions, and understanding it opens doors. Job postings in this space frequently list Kubernetes as a requirement or strong preference. Even if your current organization doesn't use it, your next one might. The concepts you learn (declarative infrastructure, container orchestration, service discovery) transfer to other tools too. If this is your career path, investing time here will pay off.
+**For infrastructure engineers, DevOps peeps, and platform engineering:** Kubernetes knowledge is increasingly expected. It's become an industry standard ask for these types of roles, and understanding it opens doors. Job postings in this space frequently list Kubernetes as a requirement or strong preference. Even if your current organization doesn't use it, your next one might. The concepts you learn (declarative infrastructure, container orchestration, service discovery) transfer to other tools too. If this is your career path, investing time here will pay off.
 
 If you're job hunting in this space, Kubernetes on your resume does matter. It's one of those technologies that recruiters and hiring managers actively search for. Having hands-on experience, even from a home lab or personal projects, sets you apart from candidates who only have theoretical knowledge. Be prepared to talk about what you've actually done with it, not just that you've "worked with" it.
 
@@ -72,9 +72,27 @@ If Kubernetes doesn't show up in your work, learning it is a curiosity project, 
 
 Learning it isn't harmful, but there's certainly an opportunity cost. Time spent learning Kubernetes is time not spent on skills which may be more directly applicable to your role. That time could go toward learning a new exploitation technique, getting better at threat modeling, studying for a certification relevant to your job, or just getting better at security fundamentals.
 
-**For security job seekers specifically:** Look at the job postings you're interested in. If they mention Kubernetes, cloud security, or container security, then yes, learn it. If they don't, your time is probably better spent elsewhere. The security job market is competitive, and you want to optimize for skills that actually appear in the roles you're targeting.
+### A Note for Developers
 
-A common trap is adding every technology to your resume hoping something sticks. From an interviewer's perspective, I notice when candidates list Kubernetes but can't answer basic questions about it. If you do list Kubernetes, be ready to explain what you've done with it and discuss its security model.
+**The Tooling Trap (And When It Isn't One):** There is a pattern I see among developers spend more time setting up the infrastructure to do work than actually doing the work.
+
+Someone wants to build a side project. Before writing a single line of application code, they spend a while setting up a CI/CD pipeline, configuring Kubernetes manifests, implementing GitOps with ArgoCD, setting up monitoring with Prometheus and Grafana, and configuring automated testing workflows. Then they lose motivation and never build the actual thing. I am guilty of this myself.
+
+But here's the thing: there's a duality to this.
+
+If you're trying to land a job at a company that operates at scale, understanding these tools is genuinely an important skill(s). Large teams shipping large projects need standardized deployment processes, observable infrastructure, and reproducible environments. If you want to integrate into those ecosystems, you need to speak the language. Learning Kubernetes, CI/CD development patterns, and infrastructure-as-code because you're targeting those roles is perfectly reasonable.
+
+However, these tools aren't necessary to develop software. You can build and ship real applications without any of this. Plenty of successful products run on a single server with manual deploys. SQLite powers more applications than any other database. A bash script that copies files to a server is a valid deployment strategy. If you are like me, and enjoy the marrying of infrastructure and applications, learning K8s can be a fun and worthwhile adventure. If you're solely interested in development, then maybe less so.
+
+**Know what you're optimizing for.**
+
+If you're learning tools to get a job that requires them, great. That's a clear goal with a clear path.
+
+If you're learning tools because you want to build something, ask whether the tools are helping you build it or delaying you from building it. The simplest solution that works is usually the right choice until it becomes a bottleneck.
+
+**For security job seekers specifically:** Look at the job postings you're interested in. If they mention Kubernetes, cloud security, or container security, then yes, spend some time to learn it, at least the basics. If they don't, your time is probably better spent elsewhere. The security job market is competitive, and you want to optimize for skills that actually appear in the roles you're targeting.
+
+A common trap is adding every technology you may have tangentially touched on to your resume hoping that something sticks. From an interviewer's perspective, I notice when candidates list Kubernetes but can't answer basic questions about it. If you do list Kubernetes, be ready to explain what you've done with it and discuss it.
 
 That said, cloud and container security roles are growing. If you're trying to break into security or pivot within it, specializing in this area is a strategy. The demand is real, and there's less competition than in traditional security roles because the skill set is newer.
 

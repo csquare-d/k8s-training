@@ -35,6 +35,7 @@ It's not required reading, but I like to think that it provides useful context a
 - At least 2GB of RAM available
 
 ## Repository Structure
+
 ```
 k8s-training/
 ├── README.md
@@ -46,7 +47,7 @@ k8s-training/
     ├── attack-scenario.md              # Basic (guided)
     ├── attack-setup.sh
     ├── attack-cleanup.sh
-    ├── advanced-attack-scenario.md     # Advanced (multi-path)
+    ├── advanced-attack-scenario.md     # Advanced (multi-path scenario)
     ├── advanced-attack-setup.sh
     ├── advanced-attack-cleanup.sh
     ├── vulnerable-app/
@@ -56,6 +57,7 @@ k8s-training/
         ├── internal-api.py
         └── legacy-app.py
 ```
+
 ## Quick Start
 
 ### 1. Set Up the Cluster
